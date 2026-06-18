@@ -758,10 +758,7 @@
                                         <div class="cell-actions">
                                            
 
-                                            <a asp-area="Admin"
-                                               asp-controller="Flights"
-                                               asp-action="Detail"
-                                               asp-route-id="@f.FlightId"
+                                            <a href="/Admin/Flights/FlightDetail/@f.FlightId"
                                                class="act act-view">
                                                 <i class="bi bi-eye-fill"></i>
                                                 <span class="act-label">Görüntüle</span>
@@ -776,10 +773,8 @@
                                                 <span class="act-label">Düzenle</span>
                                             </a>
 
-                                            <a asp-area="Admin"
-                                               asp-controller="Bookings"
-                                               asp-action="Create"
-                                               asp-route-flightId="@f.FlightId"
+                                            <a href="/Admin/Booking/CreateBooking/@f.FlightId"
+                                              
                                                class="act act-book">
                                                 <i class="bi bi-ticket-perforated-fill"></i>
                                                 <span class="act-label">Rezerve Et</span>
