@@ -366,13 +366,6 @@
         </div>
     </div>
 
-            @* FORM BAŞLANGICI *@
-            @*
-        CompleteCheckInDto alanları hidden input olarak taşınır.
-        PassengerId, FlightId, PnrNumber: ViewBag'den sabit değer.
-        SeatNumber, BaggageKg, MealType, ExtraServices, ExtraTotalPrice: JS tarafından doldurulur.
-        asp-area="Admin" asp-controller="CheckIn" asp-action="Index"
-    *@
     <form id="checkInForm" method="post">
 
                 @* DTO hidden alanlar *@
