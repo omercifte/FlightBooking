@@ -1,8 +1,13 @@
 using System.Reflection;
+using FlightBooking.AgentServices;
+using FlightBooking.AgentServices.OpenIAServices;
+using FlightBooking.AgentSettings;
 using FlightBooking.Services.BookingServices;
 using FlightBooking.Services.CheckInServices;
 using FlightBooking.Services.FlightServices;
 using FlightBooking.Services.MachineLearningServices;
+using FlightBooking.Services.NoShowServices;
+using FlightBooking.Services.OverBookingNoShowServices;
 using FlightBooking.Settings;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -12,6 +17,20 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<IFlightService, FlightService>();
 builder.Services.AddScoped<IBookingService, BookingService>();
 builder.Services.AddScoped<ICheckInService, CheckInService>();
+
+builder.Services.AddSingleton<FlightRegressionService>();
+builder.Services.AddScoped<NoShowService>();
+builder.Services.AddScoped<OverbookingRecommendationService>();
+builder.Services.AddScoped<NoShowPredictionService>();
+
+builder.Services.AddScoped<ITravelAgentService, TravelAgentService>();
+builder.Services.AddScoped<IOpenAIService, OpenAIService>();
+
+builder.Services.Configure<OpenAISettings>(builder.Configuration.GetSection("OpenAI"));
+
+builder.Services.AddHttpClient();
+
+
 
 builder.Services.AddSingleton<FlightMlService>();
 builder.Services.AddScoped<MongoFlightDataService>();

@@ -31,8 +31,7 @@ namespace FlightBooking.Areas.Admin.Controllers
             for (int day = 1; day <= 31; day++)
             {
                 var date = new DateTime(2027, 1, day);
-
-                // 🌅 Morning
+  
                 var morningInput = new FlightRegressionData
                 {
                     Month = date.Month,
@@ -42,7 +41,7 @@ namespace FlightBooking.Areas.Admin.Controllers
 
                 var morningPrediction = _regressionService.Predict(morningInput);
 
-                // 🌙 Evening
+
                 var eveningInput = new FlightRegressionData
                 {
                     Month = date.Month,
