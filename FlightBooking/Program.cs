@@ -1,7 +1,11 @@
 using System.Reflection;
 using FlightBooking.AgentServices;
+using FlightBooking.AgentServices.IntentDetectors;
 using FlightBooking.AgentServices.OpenIAServices;
+using FlightBooking.AgentServices.PrompBuilders;
 using FlightBooking.AgentSettings;
+using FlightBooking.Services.AirportServices;
+using FlightBooking.Services.AirportServices.FlighSearchServices;
 using FlightBooking.Services.BookingServices;
 using FlightBooking.Services.CheckInServices;
 using FlightBooking.Services.FlightServices;
@@ -9,8 +13,10 @@ using FlightBooking.Services.MachineLearningServices;
 using FlightBooking.Services.NoShowServices;
 using FlightBooking.Services.OverBookingNoShowServices;
 using FlightBooking.Settings;
+using FlightBooking.Tools.WeatherTool;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using FlightBooking.AgentServices.CityDetectors;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,10 +31,18 @@ builder.Services.AddScoped<NoShowPredictionService>();
 
 builder.Services.AddScoped<ITravelAgentService, TravelAgentService>();
 builder.Services.AddScoped<IOpenAIService, OpenAIService>();
+builder.Services.AddScoped<ICityExtractor, OpenAICityExtractor>();
 
 builder.Services.Configure<OpenAISettings>(builder.Configuration.GetSection("OpenAI"));
+builder.Services.AddScoped<ITravelPromptBuilder, TravelPromptBuilder>();
+builder.Services.AddScoped<IIntentDetector, TravelIntentDetector>();
+
+builder.Services.AddScoped<IWeatherTool, WeatherTool>();
 
 builder.Services.AddHttpClient();
+
+builder.Services.AddHttpClient<IAirportService, AirportService>();
+builder.Services.AddHttpClient<IFlightSearchService, FlightSearchService>();
 
 
 
